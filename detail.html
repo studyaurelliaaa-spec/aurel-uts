@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapunzel | A Storybook</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #493c50;
+            --plum: #84658f;
+            --lavender: #e9dced;
+            --pink: #f4dce5;
+            --paper: #fffaf1;
+            --gold: #c6a45b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            color: var(--ink);
+            background-color: #f2e8f0;
+            background-image:
+                radial-gradient(#d9c7dc 0.8px, transparent 0.8px);
+            background-size: 18px 18px;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            width: min(1160px, 92%);
+            margin: 28px auto;
+            background: var(--paper);
+            border: 1px solid #e8d8df;
+            box-shadow: 0 18px 55px rgba(83, 58, 91, 0.13);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .page::before,
+        .page::after {
+            content: "✦";
+            position: absolute;
+            color: var(--gold);
+            font-size: 25px;
+            z-index: 2;
+        }
+
+        .page::before {
+            top: 22px;
+            left: 25px;
+        }
+
+        .page::after {
+            top: 22px;
+            right: 25px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 25px 7%;
+            border-bottom: 1px solid #eadde4;
+        }
+
+        .brand {
+            font-family: "Playfair Display", serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--plum);
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--plum);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            align-items: center;
+            gap: 55px;
+            padding: 75px 9% 65px;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "❀";
+            position: absolute;
+            right: 5%;
+            bottom: 25px;
+            color: #d9b7c8;
+            font-size: 55px;
+            transform: rotate(18deg);
+        }
+
+        .chapter {
+            display: inline-block;
+            color: var(--plum);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        h1, h2, h3 {
+            font-family: "Playfair Display", serif;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--ink);
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1.08;
+            margin-bottom: 22px;
+        }
+
+        h1 span {
+            color: var(--plum);
+            font-style: italic;
+        }
+
+        .hero-copy p {
+            max-width: 490px;
+            font-size: 0.98rem;
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .story-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--plum);
+            color: white;
+            padding: 13px 21px;
+            border-radius: 4px 18px 18px 18px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 4px 4px 0 #d9c4df;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .story-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 4px 7px 0 #d9c4df;
+        }
+
+        .photo-area {
+            position: relative;
+            padding: 15px;
+        }
+
+        .photo-area::before {
+            content: "";
+            position: absolute;
+            inset: 0 15px 15px 0;
+            background: var(--pink);
+            border: 1px solid #e7cdd9;
+            transform: rotate(-5deg);
+            border-radius: 4px;
+        }
+
+        .polaroid {
+            position: relative;
+            background: white;
+            padding: 12px 12px 40px;
+            box-shadow: 0 12px 28px rgba(78, 55, 87, 0.15);
+            transform: rotate(3deg);
+        }
+
+        .polaroid img {
+            display: block;
+            width: 100%;
+            height: 390px;
+            object-fit: cover;
+        }
+
+        .photo-note {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #89758f;
+            font-family: "Playfair Display", serif;
+            font-size: 1rem;
+            font-style: italic;
+            white-space: nowrap;
+        }
+
+        .sparkle {
+            position: absolute;
+            top: 5px;
+            right: -3px;
+            color: var(--gold);
+            font-size: 34px;
+            transform: rotate(12deg);
+        }
+
+        .section {
+            padding: 55px 9%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-heading .chapter {
+            margin-bottom: 7px;
+        }
+
+        .section-heading h2 {
+            color: var(--ink);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            color: #8d7e91;
+            font-size: 0.92rem;
+            margin-top: 10px;
+        }
+
+        .story-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .story-card {
+            background: #fff;
+            border: 1px solid #eadde4;
+            padding: 25px 23px;
+            min-height: 210px;
+            position: relative;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .story-card:nth-child(1) {
+            border-radius: 28px 5px 28px 5px;
+        }
+
+        .story-card:nth-child(2) {
+            border-radius: 5px 28px 5px 28px;
+            background: #fcf4f7;
+        }
+
+        .story-card:nth-child(3) {
+            border-radius: 28px 5px 28px 5px;
+            background: #f8f4fb;
+        }
+
+        .story-card:hover {
+            transform: translateY(-6px) rotate(-1deg);
+            box-shadow: 0 12px 25px rgba(83, 58, 91, 0.1);
+        }
+
+        .card-number {
+            color: #c8a9cc;
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .story-card h3 {
+            color: var(--plum);
+            font-size: 1.35rem;
+            margin-bottom: 9px;
+        }
+
+        .story-card p {
+            font-size: 0.9rem;
+            line-height: 1.75;
+        }
+
+        .gallery-section {
+            background: #f8f0f5;
+            border-top: 1px solid #eadde4;
+            border-bottom: 1px solid #eadde4;
+        }
+
+        .gallery-frame {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 14px;
+            background: white;
+            border: 1px solid #e7d9e4;
+            box-shadow: 0 12px 30px rgba(83, 58, 91, 0.1);
+            transform: rotate(-0.5deg);
+        }
+
+        .gallery-image {
+            display: block;
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            background: #eadde9;
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 0 4px;
+        }
+
+        .gallery-controls button {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #dfcde3;
+            border-radius: 50%;
+            background: #f7edf8;
+            color: var(--ink);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .gallery-controls button:hover {
+            background: var(--lavender);
+            transform: scale(1.08);
+        }
+
+        .dots {
+            display: flex;
+            gap: 9px;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            padding: 0;
+            border: none !important;
+            background: #d9c6df !important;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--plum) !important;
+            transform: scale(1.25);
+        }
+
+        .closing {
+            padding: 65px 10%;
+            text-align: center;
+        }
+
+        .closing-mark {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .closing h2 {
+            color: var(--plum);
+            font-size: clamp(1.7rem, 4vw, 2.5rem);
+            margin-bottom: 12px;
+        }
+
+        .closing p {
+            max-width: 550px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            padding: 23px 15px;
+            text-align: center;
+            color: #8d7e91;
+            font-size: 0.82rem;
+            border-top: 1px solid #eadde4;
+        }
+
+        @media (max-width: 760px) {
+            .page {
+                width: 100%;
+                margin: 0;
+                border: none;
+            }
+
+            .navbar {
+                flex-direction: column;
+                padding: 24px 5%;
+            }
+
+            .nav-links {
+                gap: 18px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 50px 7%;
+            }
+
+            .hero-copy {
+                text-align: center;
+            }
+
+            .hero-copy p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .photo-area {
+                width: min(100%, 470px);
+                margin: 0 auto;
+            }
+
+            .polaroid img {
+                height: 320px;
+            }
+
+            .section {
+                padding: 45px 7%;
+            }
+
+            .story-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .story-card {
+                min-height: auto;
+            }
+
+            .gallery-image {
+                height: 300px;
+            }
+
+            .closing {
+                padding: 50px 7%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <nav class="navbar">
+            <a href="index.html" class="brand">Rapunzel's World ✧</a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#galeri">Galeri</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section class="hero" id="tentang">
+                <div class="hero-copy">
+                    <span class="chapter">Kisah Rapunzel</span>
+                    <h1>Hai, aku <span>Rapunzel.</span></h1>
+                    <p>
+                        Aku adalah seorang putri dengan rambut ajaib dan rasa ingin tahu
+                        yang besar. Dari menara tinggi, aku membayangkan dunia luas yang
+                        penuh warna, teman baru, dan petualangan.
+                    </p>
+                    <a href="#galeri" class="story-button">
+                        Buka album kenangan <span>↗</span>
+                    </a>
+                </div>
+
+                <div class="photo-area">
+                    <span class="sparkle">✧</span>
+                    <div class="polaroid">
+                        <img src="rapunzel 01.jpeg" alt="Rapunzel">
+                        <div class="photo-note">A little bit of magic</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-heading">
+                    <span class="chapter">Catatan Kecil</span>
+                    <h2>Tentang Rapunzel</h2>
+                    <p>Hal-hal istimewa dari kisah seorang putri.</p>
+                </div>
+
+                <div class="story-cards">
+                    <article class="story-card">
+                        <div class="card-number">01</div>
+                        <h3>Hal yang Disukai</h3>
+                        <p>Melukis, membaca buku, dan menghabiskan waktu bersama Pascal.</p>
+                    </article>
+
+                    <article class="story-card">
+                        <div class="card-number">02</div>
+                        <h3>Keistimewaan</h3>
+                        <p>Rambut panjang ajaib yang dapat bersinar dan memiliki kekuatan penyembuh.</p>
+                    </article>
+
+                    <article class="story-card">
+                        <div class="card-number">03</div>
+                        <h3>Impian</h3>
+                        <p>Melihat lentera bercahaya dari dekat dan menjelajahi dunia di luar menara.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section gallery-section" id="galeri">
+                <div class="section-heading">
+                    <span class="chapter">Album Kenangan</span>
+                    <h2>Potongan Cerita</h2>
+                    <p>Geser foto untuk melihat tiga momen Rapunzel.</p>
+                </div>
+
+                <div class="gallery-frame">
+                    <img
+                        id="galleryImage"
+                        class="gallery-image"
+                        src="rapunzel 02.jpeg"
+                        alt="Foto Rapunzel"
+                    >
+
+                    <div class="gallery-controls">
+                        <button type="button" id="prevButton" aria-label="Foto sebelumnya">‹</button>
+                        <div class="dots" id="galleryDots"></div>
+                        <button type="button" id="nextButton" aria-label="Foto berikutnya">›</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="closing">
+                <div class="closing-mark">✦ ✧ ✦</div>
+                <h2>Setiap kisah punya cahaya.</h2>
+                <p>
+                    Teruslah bermimpi, berani mencoba, dan temukan keajaiban
+                    dalam hal-hal sederhana.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            ✨ Dibuat oleh Aurel, terinspirasi dari kisah Rapunzel ✨
+        </footer>
+    </div>
+
+    <script>
+        // Galeri hanya berisi 3 foto
+        const galleryImages = [
+            "rapunzel 02.jpeg",
+            "rapunzel 03.jpeg",
+            "rapunzel 04.jpeg"
+        ];
+
+        let currentImage = 0;
+
+        const galleryImage = document.getElementById("galleryImage");
+        const galleryDots = document.getElementById("galleryDots");
+
+        function showImage(index) {
+            currentImage = (index + galleryImages.length) % galleryImages.length;
+            galleryImage.src = galleryImages[currentImage];
+
+            document.querySelectorAll(".dot").forEach((dot, dotIndex) => {
+                dot.classList.toggle("active", dotIndex === currentImage);
+            });
+        }
+
+        galleryImages.forEach((image, index) => {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "dot";
+            dot.setAttribute("aria-label", "Tampilkan foto " + (index + 1));
+            dot.addEventListener("click", () => showImage(index));
+            galleryDots.appendChild(dot);
+        });
+
+        document.getElementById("prevButton").addEventListener("click", () => {
+            showImage(currentImage - 1);
+        });
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+            showImage(currentImage + 1);
+        });
+
+        showImage(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Rapunzel</title>
+
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+        :root {
+            --night: #211532;
+            --purple: #7552a0;
+            --lavender: #d9c5f0;
+            --gold: #f5d99b;
+            --cream: #fff9ef;
+            --ink: #3e2d50;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            color: var(--ink);
+            font-family: "DM Sans", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(131, 93, 174, 0.35), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(241, 202, 141, 0.16), transparent 25%),
+                var(--night);
+        }
+
+        .project-container {
+            position: relative;
+            max-width: 1080px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: var(--cream);
+            border: 1px solid rgba(245, 217, 155, 0.55);
+            border-radius: 28px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .image-container {
+            position: relative;
+            min-height: 300px;
+            overflow: hidden;
+            background: #49305f;
+        }
+
+        .full-width-image {
+            display: block;
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+        }
+
+        .image-container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(28, 16, 43, 0.08) 20%, rgba(28, 16, 43, 0.82) 100%);
+        }
+
+        .hero-decoration {
+            position: absolute;
+            z-index: 1;
+            top: 24px;
+            left: 28px;
+            color: var(--gold);
+            font-size: 24px;
+            letter-spacing: 10px;
+            text-shadow: 0 0 15px rgba(245, 217, 155, 0.7);
+        }
+
+        .project-title {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            bottom: 42px;
+            width: 90%;
+            margin: 0;
+            transform: translateX(-50%);
+            color: #fff9ed;
+            text-align: center;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(36px, 6vw, 68px);
+            text-shadow: 0 4px 22px rgba(15, 8, 25, 0.65);
+        }
+
+        .hero-caption {
+            position: absolute;
+            z-index: 1;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f5d99b;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .breadcrumb {
+            padding: 16px 32px;
+            color: #8b7a91;
+            background: #fffdf8;
+            border-bottom: 1px solid #eee3ef;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--purple);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .content-section {
+            padding: 38px 44px;
+            line-height: 1.8;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin: 0 0 16px;
+            color: #4e3768;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(26px, 3vw, 36px);
+        }
+
+        .section-heading::before {
+            content: "✦";
+            color: #bd8b50;
+            font-size: 25px;
+        }
+
+        .content-section p {
+            margin: 0;
+        }
+
+        .profile-card {
+            position: relative;
+            margin-top: 26px;
+            padding: 26px 30px;
+            background: linear-gradient(135deg, #f4eafa, #fff4e2);
+            border: 1px solid #e3d2ec;
+            border-radius: 20px;
+            box-shadow: 0 10px 24px rgba(81, 54, 102, 0.08);
+        }
+
+        .profile-card::after {
+            content: "✧";
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            color: #bd8b50;
+            font-size: 30px;
+        }
+
+        .profile-card strong {
+            color: #4e3768;
+        }
+
+        .profile-card ul {
+            margin: 12px 0 0;
+            padding-left: 22px;
+        }
+
+        .profile-card li {
+            margin: 7px 0;
+        }
+
+        .gallery-intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .gallery-note {
+            margin: 0;
+            color: #86758d;
+            font-size: 14px;
+        }
+
+        .gallery-label {
+            padding: 7px 13px;
+            color: #6b4b86;
+            background: #eee3f5;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .project-slider {
+            position: relative;
+            overflow: hidden;
+            margin-top: 24px;
+            padding: 16px;
+            background:
+                radial-gradient(circle at 20% 20%, #fff8e8, transparent 35%),
+                #e9def1;
+            border: 1px solid #ded0e8;
+            border-radius: 24px;
+        }
+
+        .slider-toggle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .slider-container {
+            display: flex;
+            width: 300%;
+            transition: transform 0.55s ease;
+        }
+
+        .slider-slide {
+            width: 33.333%;
+            flex-shrink: 0;
+            padding: 8px;
+        }
+
+        .polaroid {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 12px 12px 22px;
+            background: #fffefa;
+            border-radius: 5px;
+            box-shadow: 0 12px 28px rgba(52, 34, 67, 0.2);
+            transform: rotate(-1deg);
+        }
+
+        .slider-slide:nth-child(2) .polaroid {
+            transform: rotate(1deg);
+        }
+
+        .slider-slide:nth-child(3) .polaroid {
+            transform: rotate(-0.5deg);
+        }
+
+        .slider-slide img {
+            display: block;
+            width: 100%;
+            height: 410px;
+            object-fit: cover;
+            background: #d9c5f0;
+        }
+
+        .polaroid-caption {
+            margin-top: 12px;
+            color: #755d80;
+            text-align: center;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 17px;
+        }
+
+        #slide1:checked ~ .slider-container {
+            transform: translateX(0);
+        }
+
+        #slide2:checked ~ .slider-container {
+            transform: translateX(-33.333%);
+        }
+
+        #slide3:checked ~ .slider-container {
+            transform: translateX(-66.666%);
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 0 5px;
+        }
+
+        .slider-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #c9b3d8;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .slider-dot:hover {
+            transform: scale(1.25);
+        }
+
+        #slide1:checked ~ .slider-controls label[for="slide1"],
+        #slide2:checked ~ .slider-controls label[for="slide2"],
+        #slide3:checked ~ .slider-controls label[for="slide3"] {
+            background: #6f4b91;
+            border-color: #fff;
+            box-shadow: 0 0 0 2px #b99acb;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 44px 42px;
+            padding: 14px 24px;
+            color: #fff;
+            background: #6f4b91;
+            border: 1px solid #8b6ba8;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(91, 59, 119, 0.2);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .back-link:hover {
+            background: #4e3768;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .project-container {
+                border-radius: 20px;
+            }
+
+            .full-width-image {
+                height: 310px;
+            }
+
+            .hero-decoration {
+                top: 16px;
+                left: 18px;
+                font-size: 18px;
+            }
+
+            .project-title {
+                bottom: 42px;
+            }
+
+            .hero-caption {
+                bottom: 20px;
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .breadcrumb {
+                padding: 14px 18px;
+            }
+
+            .content-section {
+                padding: 27px 18px;
+            }
+
+            .profile-card {
+                padding: 22px 20px;
+            }
+
+            .project-slider {
+                padding: 8px;
+            }
+
+            .slider-slide {
+                padding: 5px;
+            }
+
+            .slider-slide img {
+                height: 270px;
+            }
+
+            .back-link {
+                margin: 0 18px 28px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="project-container">
+        <div class="image-container">
+            <img
+                src="rapunzel 09.jpeg"
+                class="full-width-image"
+                alt="Rapunzel"
+            >
+            <div class="hero-decoration" aria-hidden="true">✦ ✧ ✦</div>
+            <h1 class="project-title">Mengenal Rapunzel</h1>
+            <div class="hero-caption">A story written in the stars</div>
+        </div>
+
+        <div class="breadcrumb">
+            <a href="index.html">Beranda</a> / Profil Rapunzel
+        </div>
+
+        <section class="content-section">
+            <h2 class="section-heading">Profil Rapunzel</h2>
+            <p>
+                Rapunzel adalah tokoh utama dalam kisah Disney <em>Tangled</em>.
+                Ia dikenal sebagai sosok yang kreatif, ceria, penuh rasa ingin tahu,
+                dan memiliki rambut panjang ajaib.
+            </p>
+
+            <div class="profile-card">
+                <strong>Hal yang menggambarkan Rapunzel:</strong>
+                <ul>
+                    <li>Kreatif dan senang melukis.</li>
+                    <li>Berani mempelajari hal-hal baru.</li>
+                    <li>Memiliki rasa ingin tahu yang besar.</li>
+                    <li>Menghargai persahabatan dan kebebasan.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="gallery-intro">
+                <div>
+                    <h2 class="section-heading">Galeri Rapunzel</h2>
+                    <p class="gallery-note">
+                        Pilih salah satu titik untuk melihat gambar lainnya.
+                    </p>
+                </div>
+                <span class="gallery-label">3 MOMENTS</span>
+            </div>
+
+            <div class="project-slider">
+                <input type="radio" name="slider" id="slide1" class="slider-toggle" checked>
+                <input type="radio" name="slider" id="slide2" class="slider-toggle">
+                <input type="radio" name="slider" id="slide3" class="slider-toggle">
+
+                <div class="slider-container">
+                    <div class="slider-slide">
+                        <div class="polaroid">
+                            <img src="rapunzel 10.JPEG" alt="Rapunzel di menara">
+                            <div class="polaroid-caption">A little dreamer ✧</div>
+                        </div>
+                    </div>
+
+                    <div class="slider-slide">
+                        <div class="polaroid">
+                            <img src="rapunzel 11.JPEG" alt="Rapunzel bersama lentera">
+                            <div class="polaroid-caption">Under the lanterns ✧</div>
+                        </div>
+                    </div>
+
+                    <div class="slider-slide">
+                        <div class="polaroid">
+                            <img src="rapunzel 12.JPEG" alt="Rapunzel melukis">
+                            <div class="polaroid-caption">Colors of imagination ✧</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-controls">
+                    <label for="slide1" class="slider-dot" aria-label="Gambar 1"></label>
+                    <label for="slide2" class="slider-dot" aria-label="Gambar 2"></label>
+                    <label for="slide3" class="slider-dot" aria-label="Gambar 3"></label>
+                </div>
+            </div>
+        </section>
+
+        <a class="back-link" href="index.html">← Kembali ke halaman utama</a>
+    </main>
+</body>
+</html>

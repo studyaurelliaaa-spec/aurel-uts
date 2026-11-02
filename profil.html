@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Profil Saya</title>
+
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Nunito", sans-serif;
+			color: #4b3f50;
+			background: linear-gradient(135deg, #fff5f7, #f1edff);
+			min-height: 100vh;
+		}
+
+		nav {
+			padding: 18px 7%;
+			background: rgba(255, 255, 255, 0.8);
+			border-bottom: 1px solid #f0e4ef;
+		}
+
+		nav ul {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 28px;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		nav a {
+			color: #6e5878;
+			text-decoration: none;
+			font-weight: 800;
+			transition: color 0.2s;
+		}
+
+		nav a:hover {
+			color: #d16d9c;
+		}
+
+		.page {
+			width: min(1000px, 90%);
+			margin: 48px auto;
+		}
+
+		.heading {
+			text-align: center;
+			margin-bottom: 28px;
+		}
+
+		.heading .eyebrow {
+			display: inline-block;
+			padding: 7px 15px;
+			border-radius: 30px;
+			background: #f9dce9;
+			color: #9d5579;
+			font-size: 13px;
+			font-weight: 800;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			margin: 14px 0 10px;
+			font-family: "Playfair Display", serif;
+			font-size: clamp(32px, 5vw, 48px);
+			color: #594466;
+		}
+
+		.heading p {
+			margin: 0;
+			color: #88788e;
+			line-height: 1.7;
+		}
+
+		.profile-card {
+			display: grid;
+			grid-template-columns: 0.8fr 1.2fr;
+			overflow: hidden;
+			background: #fff;
+			border: 1px solid #f0e4ef;
+			border-radius: 26px;
+			box-shadow: 0 18px 45px rgba(105, 75, 112, 0.12);
+		}
+
+		.profile-side {
+			padding: 38px 30px;
+			background: linear-gradient(160deg, #f8dce9, #e9e1fb);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+
+		.avatar {
+			width: 118px;
+			height: 118px;
+			display: grid;
+			place-items: center;
+			margin-bottom: 20px;
+			border: 6px solid rgba(255, 255, 255, 0.8);
+			border-radius: 50%;
+			background: #fff;
+			font-size: 48px;
+			box-shadow: 0 8px 20px rgba(105, 75, 112, 0.12);
+		}
+
+		.profile-side h2 {
+			margin: 0 0 8px;
+			font-family: "Playfair Display", serif;
+			font-size: 25px;
+			color: #594466;
+		}
+
+		.profile-side p {
+			max-width: 250px;
+			margin: 0;
+			color: #796781;
+			line-height: 1.7;
+		}
+
+		.form-area {
+			padding: 38px;
+		}
+
+		.form-area h2 {
+			margin: 0 0 8px;
+			font-size: 23px;
+			color: #594466;
+		}
+
+		.form-intro {
+			margin: 0 0 25px;
+			color: #8a7c90;
+			line-height: 1.6;
+		}
+
+		.form-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 18px;
+		}
+
+		.field {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.field.full {
+			grid-column: 1 / -1;
+		}
+
+		label {
+			font-size: 14px;
+			font-weight: 800;
+			color: #695574;
+		}
+
+		input,
+		textarea {
+			width: 100%;
+			padding: 13px 15px;
+			border: 1px solid #e8dce9;
+			border-radius: 12px;
+			background: #fffafd;
+			color: #4b3f50;
+			font: inherit;
+			outline: none;
+			transition: border-color 0.2s, box-shadow 0.2s;
+		}
+
+		input:focus,
+		textarea:focus {
+			border-color: #cf91b1;
+			box-shadow: 0 0 0 4px rgba(207, 145, 177, 0.15);
+		}
+
+		textarea {
+			resize: vertical;
+			min-height: 100px;
+		}
+
+		.form-actions {
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			margin-top: 24px;
+		}
+
+		button {
+			border: 0;
+			border-radius: 30px;
+			padding: 13px 25px;
+			background: linear-gradient(135deg, #d982a9, #a88bd1);
+			color: white;
+			font: inherit;
+			font-weight: 800;
+			cursor: pointer;
+			box-shadow: 0 8px 18px rgba(168, 139, 209, 0.25);
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+
+		button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 11px 22px rgba(168, 139, 209, 0.32);
+		}
+
+		#hasilProfil {
+			display: none;
+			margin-top: 24px;
+			padding: 18px;
+			border: 1px solid #e9d8ed;
+			border-radius: 15px;
+			background: #fbf7ff;
+			line-height: 1.7;
+			overflow-wrap: anywhere;
+		}
+
+		#hasilProfil h3 {
+			margin: 0 0 10px;
+			color: #765a89;
+		}
+
+		#hasilProfil p {
+			margin: 6px 0;
+		}
+
+		footer {
+			padding: 24px 7%;
+			text-align: center;
+			color: #8a7c90;
+			font-size: 14px;
+		}
+
+		footer a {
+			color: #a15f86;
+			font-weight: 800;
+			text-decoration: none;
+		}
+
+		@media (max-width: 700px) {
+			nav {
+				padding: 16px 5%;
+			}
+
+			nav ul {
+				justify-content: center;
+				gap: 22px;
+			}
+
+			.page {
+				margin: 30px auto;
+			}
+
+			.profile-card {
+				grid-template-columns: 1fr;
+			}
+
+			.profile-side {
+				padding: 30px 22px;
+			}
+
+			.form-area {
+				padding: 26px 22px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.form-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.field.full {
+				grid-column: auto;
+			}
+
+			.form-actions {
+				align-items: stretch;
+				flex-direction: column;
+			}
+
+			button {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<nav>
+		<ul>
+			<li><a href="index.html#contact">Contact</a></li>
+			<li><a href="profil.html">Profil</a></li>
+			<li>
+				<a href="https://www.instagram.com/aurell_ponamon/"
+				   target="_blank"
+				   rel="noopener noreferrer">Instagram</a>
+			</li>
+		</ul>
+	</nav>
+
+	<main class="page">
+		<header class="heading">
+			<span class="eyebrow">Kenalan lebih dekat</span>
+			<h1>Form Profil Saya</h1>
+			<p>Lengkapi data singkat di bawah ini, lalu simpan untuk melihat ringkasan profil.</p>
+		</header>
+
+		<section class="profile-card">
+			<aside class="profile-side">
+				<div class="avatar" aria-hidden="true">🌷</div>
+				<h2>Halo, teman!</h2>
+				<p>Yuk, isi profil singkatmu dan tampilkan informasi diri dengan rapi.</p>
+			</aside>
+
+			<div class="form-area">
+				<h2>Data Diri</h2>
+				<p class="form-intro">Kolom bertanda wajib diisi agar profil bisa disimpan.</p>
+
+				<form id="profilForm">
+					<div class="form-grid">
+						<div class="field">
+							<label for="nim">NIM</label>
+							<input type="text" id="nim" name="nim" placeholder="Masukkan NIM" required>
+						</div>
+
+						<div class="field">
+							<label for="nama">Nama</label>
+							<input type="text" id="nama" name="nama" placeholder="Masukkan nama" required>
+						</div>
+
+						<div class="field full">
+							<label for="alamat">Alamat</label>
+							<textarea id="alamat" name="alamat" placeholder="Masukkan alamat" required></textarea>
+						</div>
+
+						<div class="field">
+							<label for="hobi">Hobi</label>
+							<input type="text" id="hobi" name="hobi" placeholder="Contoh: membaca" required>
+						</div>
+
+						<div class="field">
+							<label for="instagram">Instagram</label>
+							<input type="text" id="instagram" name="instagram" placeholder="@username" required>
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<button type="submit">Simpan Profil</button>
+					</div>
+				</form>
+
+				<div id="hasilProfil" aria-live="polite"></div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<p>✨ Dibuat oleh Aurel, terinspirasi dari kisah Rapunzel ✨</p>
+		<p><a href="index.html">Kembali ke halaman utama</a></p>
+	</footer>
+
+	<script>
+	const profilForm = document.getElementById("profilForm");
+
+	profilForm.addEventListener("submit", function(event) {
+		event.preventDefault();
+
+		const dataProfil = {
+			nim: document.getElementById("nim").value.trim(),
+			nama: document.getElementById("nama").value.trim(),
+			alamat: document.getElementById("alamat").value.trim(),
+			hobi: document.getElementById("hobi").value.trim(),
+			instagram: document.getElementById("instagram").value.trim()
+		};
+
+		localStorage.setItem("profil", JSON.stringify(dataProfil));
+
+		window.location.href = "profil-tampil.html";
+	});
+	</script>
+</body>
+</html>

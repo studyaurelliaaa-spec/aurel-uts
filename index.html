@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapunzel — Storybook Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --purple: #76538c;
+            --deep-purple: #4f365f;
+            --lavender: #e9def1;
+            --pink: #f5dce7;
+            --cream: #fffaf1;
+            --yellow: #f8df9e;
+            --ink: #4b4051;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--ink);
+            font-family: "Nunito", sans-serif;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, .brand, .number {
+            font-family: "Fredoka", sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 6%;
+            background: rgba(255, 250, 241, .96);
+            border-bottom: 1px solid #eadfeb;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            color: var(--deep-purple);
+            font-size: 1.25rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--deep-purple);
+            font-size: .88rem;
+            font-weight: 800;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: #b45f91;
+        }
+
+        .nav-links .nav-profile {
+            padding: 8px 16px;
+            border: 1px solid #d8c5e2;
+            border-radius: 30px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 70px 6% 85px;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,.75) 0 7%, transparent 7.5%),
+                radial-gradient(circle at 88% 78%, rgba(255,255,255,.45) 0 9%, transparent 9.5%),
+                var(--lavender);
+        }
+
+        .hero::before,
+        .hero::after {
+            position: absolute;
+            color: rgba(118, 83, 140, .2);
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            content: "✦";
+            top: 12%;
+            left: 4%;
+        }
+
+        .hero::after {
+            content: "✧";
+            right: 5%;
+            bottom: 10%;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 55px;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .hero-copy {
+            max-width: 600px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 7px 15px;
+            border: 1px solid #d5c0df;
+            border-radius: 30px;
+            background: rgba(255,255,255,.55);
+            color: var(--deep-purple);
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 0;
+            color: var(--deep-purple);
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
+            line-height: 1.04;
+            letter-spacing: -.03em;
+        }
+
+        .hero h1 span {
+            color: #a35d8c;
+            font-style: italic;
+        }
+
+        .hero-copy p {
+            max-width: 530px;
+            margin: 22px 0;
+            font-size: 1.08rem;
+        }
+
+        .hero-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 16px;
+            margin: 25px 0 30px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .hero-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: .94rem;
+            font-weight: 700;
+        }
+
+        .hero-list li::before {
+            content: "✿";
+            color: #a35d8c;
+        }
+
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 22px;
+            border: 0;
+            border-radius: 30px;
+            background: var(--deep-purple);
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 7px 0 #d1bfdc;
+            transition: transform .2s, box-shadow .2s, background .2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            background: #69487f;
+            box-shadow: 0 10px 0 #d1bfdc;
+        }
+
+        .hero-art {
+            position: relative;
+            max-width: 470px;
+            margin: 0 auto;
+        }
+
+        .hero-image-frame {
+            position: relative;
+            padding: 14px;
+            border: 2px solid rgba(255,255,255,.85);
+            border-radius: 48% 48% 35% 35% / 35% 35% 20% 20%;
+            background: #fff9ef;
+            box-shadow: 15px 18px 0 rgba(118, 83, 140, .15);
+            transform: rotate(2deg);
+        }
+
+        .hero-image-frame img {
+            width: 100%;
+            height: 510px;
+            border-radius: 48% 48% 35% 35% / 35% 35% 20% 20%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .image-sticker {
+            position: absolute;
+            right: -20px;
+            bottom: 45px;
+            max-width: 180px;
+            padding: 14px 18px;
+            border: 2px solid white;
+            border-radius: 18px 18px 18px 4px;
+            background: var(--yellow);
+            color: var(--deep-purple);
+            font-family: "Fredoka", sans-serif;
+            font-size: 1rem;
+            line-height: 1.3;
+            transform: rotate(-5deg);
+        }
+
+        .section-wrap {
+            width: min(1120px, 88%);
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            max-width: 650px;
+            margin: 0 auto 38px;
+            text-align: center;
+        }
+
+        .section-heading .mini-label {
+            color: #a35d8c;
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin: 8px 0 10px;
+            color: var(--deep-purple);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+        }
+
+        .section-heading p {
+            margin: 0;
+        }
+
+        .likes-section {
+            padding: 85px 0;
+            background: var(--cream);
+        }
+
+        .likes-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .like-card {
+            min-height: 170px;
+            padding: 22px 15px;
+            border: 1px solid #eadfeb;
+            border-radius: 24px 24px 24px 7px;
+            background: white;
+            text-align: center;
+            box-shadow: 0 8px 0 #f0e5f0;
+            transition: transform .2s;
+        }
+
+        .like-card:nth-child(even) {
+            transform: translateY(14px);
+            background: #fff0f5;
+        }
+
+        .like-card:hover {
+            transform: translateY(-5px) rotate(-1deg);
+        }
+
+        .like-icon {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 12px;
+            border-radius: 18px;
+            background: var(--lavender);
+            font-size: 1.7rem;
+        }
+
+        .like-card:nth-child(even) .like-icon {
+            background: var(--pink);
+        }
+
+        .like-card h3 {
+            margin: 0;
+            color: var(--deep-purple);
+            font-size: 1.05rem;
+            line-height: 1.25;
+        }
+
+        .story-section {
+            padding: 85px 0;
+            background: #f2e9f5;
+        }
+
+        .story-list {
+            display: grid;
+            gap: 28px;
+        }
+
+        .story-card {
+            display: grid;
+            grid-template-columns: .95fr 1.05fr;
+            align-items: center;
+            gap: 35px;
+            padding: 25px;
+            border: 1px solid rgba(118, 83, 140, .12);
+            border-radius: 28px;
+            background: rgba(255,255,255,.82);
+            box-shadow: 0 12px 30px rgba(79, 54, 95, .07);
+        }
+
+        .story-card:nth-child(even) {
+            grid-template-columns: 1.05fr .95fr;
+            background: #fffaf1;
+        }
+
+        .story-card:nth-child(even) .story-image {
+            order: 2;
+        }
+
+        .story-image {
+            position: relative;
+            min-width: 0;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 330px;
+            border-radius: 22px 22px 22px 6px;
+            object-fit: cover;
+        }
+
+        .story-image::after {
+            content: "";
+            position: absolute;
+            right: -8px;
+            bottom: -8px;
+            z-index: -1;
+            width: 55%;
+            height: 55%;
+            border-radius: 20px;
+            background: var(--pink);
+        }
+
+        .story-card:nth-child(even) .story-image::after {
+            background: var(--yellow);
+        }
+
+        .story-copy {
+            padding: 10px 15px;
+        }
+
+        .number {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: #a35d8c;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+        }
+
+        .story-copy h3 {
+            margin: 0 0 14px;
+            color: var(--deep-purple);
+            font-size: clamp(1.7rem, 3vw, 2.5rem);
+            line-height: 1.15;
+        }
+
+        .story-copy p {
+            margin: 0 0 20px;
+        }
+
+        .text-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--deep-purple);
+            font-weight: 800;
+            border-bottom: 2px solid #d4b8df;
+            padding-bottom: 3px;
+        }
+
+        .text-link:hover {
+            color: #a35d8c;
+            border-color: #a35d8c;
+        }
+
+        .quote-section {
+            padding: 75px 6%;
+            background: var(--deep-purple);
+            color: white;
+            text-align: center;
+        }
+
+        .quote-mark {
+            color: var(--yellow);
+            font-family: "Fredoka", sans-serif;
+            font-size: 4rem;
+            line-height: .8;
+        }
+
+        .quote-section blockquote {
+            max-width: 800px;
+            margin: 10px auto 15px;
+            font-family: "Fredoka", sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.7rem);
+            line-height: 1.3;
+        }
+
+        .quote-section p {
+            margin: 0;
+            color: #e7d9ee;
+        }
+
+        .contact-section {
+            padding: 75px 6%;
+            text-align: center;
+            background: var(--pink);
+        }
+
+        .contact-card {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 38px 25px;
+            border: 2px dashed #c89ab9;
+            border-radius: 30px;
+            background: rgba(255,255,255,.55);
+        }
+
+        .contact-card h2 {
+            margin: 0 0 10px;
+            color: var(--deep-purple);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+        }
+
+        .contact-card p {
+            margin: 0 0 22px;
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .button-light {
+            background: white;
+            color: var(--deep-purple);
+            box-shadow: 0 7px 0 #dfbfd1;
+        }
+
+        .button-light:hover {
+            background: #fff7fb;
+            box-shadow: 0 10px 0 #dfbfd1;
+        }
+
+        footer {
+            padding: 22px 6%;
+            background: var(--cream);
+            color: #75677b;
+            text-align: center;
+            font-size: .9rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner {
+                gap: 35px;
+            }
+
+            .hero-image-frame img {
+                height: 420px;
+            }
+
+            .likes-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .story-card,
+            .story-card:nth-child(even) {
+                gap: 25px;
+            }
+
+            .story-image img {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .site-nav {
+                position: static;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 10px 18px;
+            }
+
+            .hero {
+                padding: 48px 5% 60px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy {
+                text-align: center;
+            }
+
+            .hero-copy p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-list {
+                text-align: left;
+            }
+
+            .hero-art {
+                width: min(85%, 380px);
+                margin-top: 10px;
+            }
+
+            .hero-image-frame img {
+                height: 390px;
+            }
+
+            .image-sticker {
+                right: -14px;
+                bottom: 25px;
+                max-width: 150px;
+                font-size: .9rem;
+            }
+
+            .section-wrap {
+                width: 90%;
+            }
+
+            .likes-section,
+            .story-section {
+                padding: 60px 0;
+            }
+
+            .likes-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .like-card {
+                min-height: 145px;
+            }
+
+            .like-card:nth-child(even) {
+                transform: none;
+            }
+
+            .story-card,
+            .story-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 22px;
+                padding: 18px;
+            }
+
+            .story-card:nth-child(even) .story-image {
+                order: 0;
+            }
+
+            .story-image img {
+                height: 260px;
+            }
+
+            .story-copy {
+                padding: 4px 5px 10px;
+            }
+
+            .quote-section {
+                padding: 60px 6%;
+            }
+
+            .contact-section {
+                padding: 55px 5%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-list {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image-frame img {
+                height: 320px;
+            }
+
+            .likes-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .like-card {
+                padding: 18px 10px;
+            }
+
+            .like-card h3 {
+                font-size: .95rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="site-nav" aria-label="Navigasi utama">
+        <a href="#home" class="brand">✦ Dunia Rapunzel</a>
+
+        <ul class="nav-links">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#works">STORY</a></li>
+            <li><a href="#skills">KESUKAAN</a></li>
+            <li><a href="profil.html" class="nav-profile">PROFIL ↗</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <span class="eyebrow">A little storybook portfolio</span>
+                <h1>Hai, aku<br><span>Rapunzel!</span></h1>
+
+                <p>
+                    Seorang gadis dengan rasa ingin tahu, kreativitas, dan impian
+                    besar untuk menjelajahi dunia di luar menara.
+                </p>
+
+                <ul class="hero-list">
+                    <li>Senang menggambar dan berkarya</li>
+                    <li>Menyukai warna, bunga, dan alam</li>
+                    <li>Penuh imajinasi dan semangat belajar</li>
+                    <li>Berani mencoba hal-hal baru</li>
+                </ul>
+
+                <a href="#works" class="button">Jelajahi Kisahku <span>↓</span></a>
+            </div>
+
+            <div class="hero-art">
+                <div class="hero-image-frame">
+                    <img src="rapunzel 1.jpeg" alt="Ilustrasi Rapunzel">
+                </div>
+                <div class="image-sticker">Kisah tentang keberanian dan impian ✨</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="likes-section" id="skills">
+        <div class="section-wrap">
+            <div class="section-heading">
+                <span class="mini-label">Little things I love</span>
+                <h2>Hal-Hal yang Aku Sukai</h2>
+                <p>Kesukaan kecil yang membuat hari-hari Rapunzel terasa penuh warna.</p>
+            </div>
+
+            <div class="likes-grid">
+                <article class="like-card">
+                    <div class="like-icon" aria-hidden="true">🎨</div>
+                    <h3>Melukis dan Menggambar</h3>
+                </article>
+
+                <article class="like-card">
+                    <div class="like-icon" aria-hidden="true">📖</div>
+                    <h3>Membaca Buku</h3>
+                </article>
+
+                <article class="like-card">
+                    <div class="like-icon" aria-hidden="true">🎶</div>
+                    <h3>Bermain Musik dan Menyanyi</h3>
+                </article>
+
+                <article class="like-card">
+                    <div class="like-icon" aria-hidden="true">🧁</div>
+                    <h3>Memasak dan Membuat Kue</h3>
+                </article>
+
+                <article class="like-card">
+                    <div class="like-icon" aria-hidden="true">🌍</div>
+                    <h3>Bermimpi Menjelajahi Dunia</h3>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <main class="story-section" id="works">
+        <div class="section-wrap">
+            <div class="section-heading">
+                <span class="mini-label">Turn the page</span>
+                <h2>Potongan Kisah Rapunzel</h2>
+                <p>
+                    Dari taman yang indah hingga perjalanan mengejar impian,
+                    setiap kisah menyimpan hal baru untuk ditemukan.
+                </p>
+            </div>
+
+            <div class="story-list">
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="rapunzel 2.jpeg" alt="Bunga dan warna-warna lembut">
+                    </div>
+                    <div class="story-copy">
+                        <span class="number">CERITA 01 · KEINDAHAN</span>
+                        <h3>Keindahan di Taman Kerajaan</h3>
+                        <p>
+                            Rapunzel mengisi hari-harinya dengan melukis, membaca,
+                            bermain musik, dan merawat lingkungan di sekitarnya.
+                            Setiap tahun, cahaya lampion yang terlihat dari kejauhan
+                            membuatnya semakin ingin mengenal dunia di luar menara.
+                        </p>
+                        <a href="detail.html" class="text-link">Baca kisah lengkap <span>→</span></a>
+                    </div>
+                </article>
+
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="rapunzel 3.jpeg" alt="Pemandangan yang menginspirasi">
+                    </div>
+                    <div class="story-copy">
+                        <span class="number">CERITA 02 · PETUALANGAN</span>
+                        <h3>Impian Melihat Dunia</h3>
+                        <p>
+                            Rapunzel selalu penasaran dengan dunia di luar menara.
+                            Ketika bertemu Flynn Rider, ia mendapat kesempatan untuk
+                            memulai perjalanan, menemukan keberanian, dan semakin
+                            dekat dengan impiannya.
+                        </p>
+                        <a href="detail2.html" class="text-link">Baca kisah lengkap <span>→</span></a>
+                    </div>
+                </article>
+
+                <article class="story-card">
+                    <div class="story-image">
+                        <img src="rapunzel 4.jpeg" alt="Kegiatan kreatif Rapunzel">
+                    </div>
+                    <div class="story-copy">
+                        <span class="number">CERITA 03 · KREATIVITAS</span>
+                        <h3>Kreativitas Tanpa Batas</h3>
+                        <p>
+                            Selama tinggal di menara, Rapunzel mengisi waktunya
+                            dengan melukis, membaca, bermain musik, dan membuat
+                            berbagai karya. Baginya, berkarya adalah cara untuk
+                            mengekspresikan diri dan menjaga rasa ingin tahunya.
+                        </p>
+                        <a href="detail3.html" class="text-link">Baca kisah lengkap <span>→</span></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <section class="quote-section">
+        <div class="quote-mark" aria-hidden="true">“</div>
+        <blockquote>
+            Impian yang besar bisa dimulai dari rasa ingin tahu yang kecil.
+        </blockquote>
+        <p>— Catatan kecil dari kisah Rapunzel</p>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-card">
+            <h2>Terima Kasih<br>Telah Berkunjung!</h2>
+            <p>Ingin bertanya mengenai portofolio Rapunzel? Silakan kirim pesan.</p>
+
+            <div class="contact-actions">
+                <a href="https://www.instagram.com/aurell_ponamon/" class="button" target="_blank" rel="noopener noreferrer">
+                    Hubungi Saya ↗
+                </a>
+                <a href="#home" class="button button-light">Kembali ke Atas ↑</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>✨ Dibuat oleh Aurel, terinspirasi dari kisah Rapunzel ✨</p>
+    </footer>
+</body>
+</html>

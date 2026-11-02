@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pertemuan Rapunzel dan Flynn | Rapunzel's World</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --night: #251936;
+      --night-soft: #46315e;
+      --purple: #765392;
+      --lavender: #d8c0eb;
+      --pink: #f5dce8;
+      --gold: #f4d58b;
+      --cream: #fff9ef;
+      --text: #4d405b;
+      --muted: #796d86;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 8%, #fcecf4, transparent 30%),
+        radial-gradient(circle at 90% 80%, #e6d8f4, transparent 30%),
+        #f8f3fc;
+      font-family: "Nunito", sans-serif;
+      line-height: 1.7;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin-inline: auto;
+    }
+
+    /* Navigasi */
+    .topbar {
+      position: relative;
+      z-index: 2;
+      background: var(--night);
+      color: white;
+    }
+
+    .navbar {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      color: var(--gold);
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .back-link {
+      padding: 9px 16px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      color: white;
+      font-size: .9rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .back-link:hover {
+      background: rgba(255,255,255,.13);
+      transform: translateY(-2px);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--night);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(31,21,47,.94), rgba(31,21,47,.56) 58%, rgba(31,21,47,.12)),
+        linear-gradient(0deg, rgba(31,21,47,.35), transparent 60%);
+    }
+
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-content {
+      max-width: 680px;
+      padding: 76px 0;
+      color: white;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 14px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(244,213,139,.55);
+      border-radius: 999px;
+      background: rgba(244,213,139,.12);
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: "Fredoka", sans-serif;
+      line-height: 1.2;
+    }
+
+    .hero h1 {
+      max-width: 650px;
+      margin-bottom: 18px;
+      color: white;
+      font-size: clamp(2.7rem, 6vw, 5rem);
+      font-weight: 600;
+      text-shadow: 0 4px 22px rgba(0,0,0,.25);
+    }
+
+    .hero p {
+      max-width: 560px;
+      color: #f5edf9;
+      font-size: 1.08rem;
+    }
+
+    .hero-button {
+      display: inline-block;
+      margin-top: 26px;
+      padding: 12px 21px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--night);
+      font-weight: 800;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .hero-button:hover {
+      transform: translateY(-3px);
+      background: #ffe8ad;
+    }
+
+    .breadcrumb {
+      padding: 18px 0;
+      color: #8b7c97;
+      font-size: .9rem;
+    }
+
+    .breadcrumb a {
+      color: #80549b;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    /* Cerita pertemuan */
+    .meeting-section {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: stretch;
+      margin: 12px 0 64px;
+    }
+
+    .story-card,
+    .quote-card {
+      padding: clamp(24px, 4vw, 38px);
+      border-radius: 26px;
+    }
+
+    .story-card {
+      background: white;
+      border: 1px solid #eadff1;
+      box-shadow: 0 12px 32px rgba(75,51,97,.07);
+    }
+
+    .section-kicker {
+      color: #a47ab9;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .story-card h2,
+    .section-title {
+      margin: 8px 0 13px;
+      color: var(--night-soft);
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+    }
+
+    .story-card p {
+      color: var(--muted);
+    }
+
+    .quote-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(145deg, #e8d9f5, #fbe3ed);
+      color: #624b75;
+    }
+
+    .quote-card::after {
+      content: "✦";
+      position: absolute;
+      right: 22px;
+      bottom: 8px;
+      color: rgba(117, 83, 146, .22);
+      font-size: 6rem;
+    }
+
+    .quote-mark {
+      color: #a47ab9;
+      font-family: Georgia, serif;
+      font-size: 4rem;
+      line-height: .8;
+    }
+
+    .quote-card p {
+      position: relative;
+      z-index: 1;
+      margin-top: 10px;
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.45rem;
+    }
+
+    .quote-card span:last-child {
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+      color: #80668f;
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    /* Momen pertemuan */
+    .moment-section {
+      padding: 60px 0;
+      margin-bottom: 64px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(244,213,139,.12), transparent 25%),
+        var(--night);
+      color: white;
+    }
+
+    .moment-inner {
+      width: min(1000px, 90%);
+      margin-inline: auto;
+    }
+
+    .moment-heading {
+      max-width: 680px;
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .moment-heading .section-kicker {
+      color: var(--gold);
+    }
+
+    .moment-heading h2 {
+      margin: 8px 0 12px;
+      color: white;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .moment-heading p {
+      color: #ded2eb;
+    }
+
+    .moment-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .moment-card {
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 22px;
+      background: rgba(255,255,255,.07);
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .moment-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,.11);
+    }
+
+    .moment-number {
+      display: inline-grid;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 16px;
+      place-items: center;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold);
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .moment-card h3 {
+      margin-bottom: 9px;
+      color: var(--gold);
+      font-size: 1.3rem;
+    }
+
+    .moment-card p {
+      color: #e8deef;
+      font-size: .96rem;
+    }
+
+    /* Galeri */
+    .gallery-section {
+      padding: clamp(22px, 4vw, 38px);
+      margin-bottom: 58px;
+      border: 1px solid #e9dced;
+      border-radius: 28px;
+      background: white;
+      box-shadow: 0 12px 32px rgba(75,51,97,.07);
+    }
+
+    .gallery-heading {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .gallery-heading h2 {
+      margin: 8px 0;
+      color: var(--night-soft);
+      font-size: clamp(2rem, 4vw, 2.7rem);
+    }
+
+    .gallery-heading p {
+      color: var(--muted);
+    }
+
+    .slider {
+      overflow: hidden;
+      border: 1px solid #e7d9ed;
+      border-radius: 24px;
+      background: #f2e9f6;
+    }
+
+    .slider input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      transition: transform .45s ease;
+    }
+
+    .slide {
+      width: 33.3333%;
+      flex-shrink: 0;
+      padding: 12px;
+    }
+
+    .slide img {
+      width: 100%;
+      height: clamp(260px, 48vw, 460px);
+      object-fit: cover;
+      border: 8px solid white;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(55,37,70,.14);
+    }
+
+    #meeting1:checked ~ .slides { transform: translateX(0); }
+    #meeting2:checked ~ .slides { transform: translateX(-33.3333%); }
+    #meeting3:checked ~ .slides { transform: translateX(-66.6666%); }
+
+    .slider-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px;
+      background: #fff8ed;
+    }
+
+    .slider-controls label {
+      width: 13px;
+      height: 13px;
+      border: 2px solid #b99acb;
+      border-radius: 50%;
+      background: #e5d5ed;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .slider-controls label:hover {
+      transform: scale(1.2);
+    }
+
+    #meeting1:checked ~ .slider-controls label[for="meeting1"],
+    #meeting2:checked ~ .slider-controls label[for="meeting2"],
+    #meeting3:checked ~ .slider-controls label[for="meeting3"] {
+      background: var(--purple);
+      box-shadow: 0 0 0 4px #eadcf0;
+    }
+
+    .bottom-nav {
+      padding-bottom: 55px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 999px;
+      background: var(--night-soft);
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .bottom-nav a:hover {
+      background: #795a91;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      padding: 22px 15px;
+      background: #eee3f3;
+      color: #766583;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        min-height: 440px;
+      }
+
+      .meeting-section {
+        grid-template-columns: 1fr;
+      }
+
+      .moment-list {
+        grid-template-columns: 1fr;
+      }
+
+      .moment-section {
+        border-radius: 24px;
+        padding: 44px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .brand {
+        font-size: 1.05rem;
+      }
+
+      .back-link {
+        padding: 8px 11px;
+        font-size: .78rem;
+      }
+
+      .hero {
+        min-height: 380px;
+      }
+
+      .hero p {
+        font-size: .95rem;
+      }
+
+      .slide {
+        padding: 7px;
+      }
+
+      .slide img {
+        height: 240px;
+        border-width: 5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container navbar">
+      <a href="index.html" class="brand">Rapunzel's World ✨</a>
+      <a href="index.html" class="back-link">← Kembali ke Home</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="rapunzel 05.jpeg" class="hero-image" alt="Rapunzel dan Flynn memulai petualangan">
+    <div class="container hero-content">
+      <span class="eyebrow">Awal Sebuah Petualangan</span>
+      <h1>Pertemuan yang Mengubah Cerita</h1>
+      <p>
+        Rapunzel yang ingin melihat dunia bertemu Flynn Rider,
+        seorang pencuri yang tak sengaja menemukan jalan menuju menaranya.
+        Dari pertemuan tak terduga itu, petualangan mereka pun dimulai.
+      </p>
+      <a href="#momen" class="hero-button">Lihat Momen Pertemuan ↓</a>
+    </div>
+  </section>
+
+  <main class="container">
+    <p class="breadcrumb">
+      <a href="index.html">Home</a> / Detail 2 / Pertemuan Rapunzel dan Flynn
+    </p>
+
+    <section class="meeting-section">
+      <div class="story-card">
+        <span class="section-kicker">Awal cerita</span>
+        <h2>Dua Dunia yang Berbeda</h2>
+        <p>
+          Rapunzel menghabiskan sebagian besar hidupnya di sebuah menara,
+          sementara Flynn Rider terbiasa menjalani hidup sebagai pencuri.
+          Saat Flynn masuk ke menara tempat Rapunzel tinggal, keduanya
+          bertemu untuk pertama kalinya. Pertemuan yang tidak direncanakan
+          itu menjadi awal perjalanan mereka keluar dari menara dan
+          mengenal dunia yang lebih luas.
+        </p>
+      </div>
+
+      <aside class="quote-card">
+        <span class="quote-mark">“</span>
+        <p>Setiap pertemuan bisa membuka jalan menuju petualangan baru.</p>
+        <span>— Awal kisah Rapunzel dan Flynn</span>
+      </aside>
+    </section>
+  </main>
+
+  <section class="moment-section" id="momen">
+    <div class="moment-inner">
+      <div class="moment-heading">
+        <span class="section-kicker">Momen tak terduga</span>
+        <h2>Awal Pertemuan Mereka</h2>
+        <p>
+          Pertemuan Rapunzel dan Flynn membawa kejutan, rasa penasaran,
+          dan kesempatan untuk saling mengenal.
+        </p>
+      </div>
+
+      <div class="moment-list">
+        <article class="moment-card">
+          <span class="moment-number">01</span>
+          <h3>Flynn Menemukan Menara</h3>
+          <p>
+            Saat berusaha melarikan diri, Flynn menemukan menara yang menjadi
+            tempat tinggal Rapunzel.
+          </p>
+        </article>
+
+        <article class="moment-card">
+          <span class="moment-number">02</span>
+          <h3>Rapunzel Bertemu Orang Asing</h3>
+          <p>
+            Rapunzel yang belum pernah keluar dari menara bertemu Flynn.
+            Ia pun mulai melihat kesempatan untuk mewujudkan keinginannya.
+          </p>
+        </article>
+
+        <article class="moment-card">
+          <span class="moment-number">03</span>
+          <h3>Kesepakatan untuk Pergi</h3>
+          <p>
+            Keduanya membuat kesepakatan yang membawa mereka meninggalkan
+            menara dan memulai perjalanan bersama.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section class="gallery-section">
+      <div class="gallery-heading">
+        <span class="section-kicker">Kenangan pertama</span>
+        <h2>Galeri Pertemuan</h2>
+        <p>Pilih titik di bawah gambar untuk melihat momen lainnya.</p>
+      </div>
+
+      <div class="slider">
+        <input type="radio" name="meeting" id="meeting1" checked>
+        <input type="radio" name="meeting" id="meeting2">
+        <input type="radio" name="meeting" id="meeting3">
+
+        <div class="slides">
+          <div class="slide">
+            <img src="rapunzel 06.jpeg" alt="Rapunzel memulai petualangan">
+          </div>
+          <div class="slide">
+            <img src="rapunzel 07.jpeg" alt="Rapunzel bersama Flynn Rider">
+          </div>
+          <div class="slide">
+            <img src="rapunzel 08.jpeg" alt="Rapunzel dan Flynn dalam perjalanan">
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <label for="meeting1" aria-label="Tampilkan gambar pertama"></label>
+          <label for="meeting2" aria-label="Tampilkan gambar kedua"></label>
+          <label for="meeting3" aria-label="Tampilkan gambar ketiga"></label>
+        </div>
+      </div>
+    </section>
+
+    <div class="bottom-nav">
+      <a href="index.html">← Kembali ke Beranda</a>
+    </div>
+  </main>
+
+  <footer>
+    Dibuat oleh Aurel, terinspirasi dari kisah Rapunzel ✨
+  </footer>
+</body>
+</html>

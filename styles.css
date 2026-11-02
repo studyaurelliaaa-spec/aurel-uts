@@ -1,0 +1,174 @@
+/* ===== Tema Rapunzel ===== */
+:root {
+    --ungu: #6f4a91;
+    --ungu-muda: #eadcf8;
+    --pink: #f8e4ef;
+    --krem: #fff8e8;
+    --teks: #493653;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--teks);
+    font-family: "DM Sans", sans-serif;
+    background: linear-gradient(
+        135deg,
+        var(--krem) 0%,
+        var(--pink) 48%,
+        var(--ungu-muda) 100%
+    );
+    background-attachment: fixed;
+}
+
+/* ===== Judul ===== */
+h1,
+h2 {
+    font-family: "Playfair Display", serif;
+    color: var(--ungu);
+}
+
+/* ===== Navigasi ===== */
+nav {
+    width: 100%;
+    background: rgba(255, 248, 232, 0.88);
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+    padding: 16px 20px;
+    margin: 0 auto;
+}
+
+nav ul li.empty {
+    display: none;
+}
+
+nav a {
+    color: var(--ungu);
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #b05d91;
+}
+
+/* ===== Bagian Pembuka ===== */
+header {
+    background: transparent;
+}
+
+.welcome-text {
+    color: #a15e8a;
+    font-weight: 700;
+}
+
+.intro-description {
+    line-height: 1.7;
+}
+
+.intro-list {
+    line-height: 1.9;
+}
+
+/* ===== Keahlian ===== */
+.skills-section {
+    padding: 50px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 0;
+    list-style: none;
+}
+
+.skill-list li {
+    padding: 12px 18px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.75);
+}
+
+/* ===== Bagian Kisah ===== */
+.project {
+    padding: 55px 0;
+}
+
+.project-lilac {
+    background: rgba(234, 220, 248, 0.72);
+}
+
+.project-cream {
+    background: rgba(255, 248, 232, 0.78);
+}
+
+.project img,
+.intro-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 18px;
+}
+
+figcaption {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #765f80;
+}
+
+/* ===== Tombol ===== */
+.button {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 28px;
+    background: var(--ungu);
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.button:hover {
+    background: #a15e8a;
+    transform: translateY(-2px);
+}
+
+/* ===== Footer ===== */
+footer {
+    padding: 55px 20px;
+    text-align: center;
+    background: rgba(255, 248, 232, 0.9);
+}
+
+/* ===== Tampilan HP ===== */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        gap: 12px 22px;
+        padding: 16px;
+    }
+
+    .project {
+        padding: 35px 0;
+    }
+
+    .right-alignment {
+        text-align: left;
+    }
+}
